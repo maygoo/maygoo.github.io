@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <input id='para' readonly>
+        <button onclick='copy()''>Copy code</button>
+        <p id='help'></p>
+    </body>
+
+    <script>
+        var code = new URLSearchParams(window.location.search).get('code')
+        var state = new URLSearchParams(window.location.search).get('state')
+        var copytext = document.getElementById('para')
+        var help = document.getElementById('help')
+
+        if (state == 'spotify') {
+            copytext.value = code
+            help.innerHTML = 'If you were sent to this page, please copy the code and paste it into your terminal to continue with the spotify authorisation.'
+        } else {
+            copytext.value = "invalid state"
+            help.innerHTML = 'Something went wrong.'
+        }
+
+        function copy() {
+            copytext.select()
+            document.execCommand('copy')
+        }
+    </script>
+
+</html>
