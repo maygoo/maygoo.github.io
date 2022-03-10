@@ -12,11 +12,15 @@
         var copytext = document.getElementById('para')
         var help = document.getElementById('help')
 
-        if (state == 'spotify') {
+        if (code) {
             copytext.value = code
-            help.innerHTML = 'If you were sent to this page, please copy the code and paste it into your terminal to continue with the spotify authorisation.'
+            if (state == 'spotify') {
+                help.innerHTML = 'If you were sent to this page, please copy the code and paste it into your terminal to continue with the spotify authorisation.'
+            } else {
+                help.innerHTML = 'Copy the code.'
+            }
         } else {
-            copytext.value = "invalid state"
+            copytext.value = 'invalid state'
             help.innerHTML = 'Something went wrong.'
         }
 
