@@ -97,9 +97,10 @@
                     err1.innerHTML = "Invalid - enter a number";
                     err1.style.color = "red";
                     err++;
-                } else if (number.length > 4) {
-                    err1.innerHTML = "Invalid - maximum of 4 numbers";
-                    err1.style.color = "orange";
+                } else if (number.length > 5) {
+                    if (!confirm("Warning!\nUsing a large number is not recommended and may take a long time to solve, slowing down your device. Continue?")) {
+                        return;
+                    }
                 }
     
                 if (target.length == 0) {
