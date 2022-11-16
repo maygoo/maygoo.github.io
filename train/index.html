@@ -9,24 +9,43 @@
         <div style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
             <h1>Train Game Solver 👩‍🔬</h1>
             <div>
-                <div>
+                <div style="margin-bottom: 0.5em;">
                     Starting number:
                     <input type="number" name="number" id="number" value="1234">
-                    <div id="err1">Enter a valid number.</div>
+                    <div id="err1"></div>
                 </div>
-                <div>
+                <div style="margin-bottom: 0.5em;">
                     Target: 
                     <input type="number" name="target" id="target" value="10">
-                    <div id="err2">Enter a valid number.</div>
+                    <div id="err2"></div>
                 </div>
-                <button style="width:5em" onclick="solve()">Solve</button>
+                <div style="display: flex; align-items: center; margin-bottom: 0.5em;">
+                    <button style="margin-right: 0.5em;" onclick="solve()">Solve</button>
+                    <div id="possible"></div>
+                </div>
+                <input type="checkbox" id="show" onclick="show()">
+                <label for="show">Show solutions</label>
             </div>
             <div>
-                <ul id="results">
+                <ul id="results" style="visibility: hidden;">
                 </ul>
             </div>
         </div>
         <script>
+            let visible = false;
+
+            function show() {
+                let results = document.getElementById("results");
+                
+                if (visible) {
+                    results.style.visibility = "hidden";
+                    visible = false;
+                } else {
+                    results.style.visibility = "visible";
+                    visible = true;
+                }
+            }
+
             function add_li(node, item) {
                 let old = node.innerHTML;
                 old += "<li>" + item + "</li>";
@@ -62,34 +81,31 @@
                 let target = document.getElementById("target").value;
                 let slide = 1;
                 let err1 = document.getElementById("err1");
+                err1.innerHTML = "";
                 let err2 = document.getElementById("err2");
+                err2.innerHTML = "";
                 let results = document.getElementById("results");
                 let result_set = new Set();
                 results.innerHTML = "";
+                let possible = document.getElementById("possible");
     
                 //console.log(number, target, err1, err2);
     
                 // valiate input
                 let err = 0;
                 if (number.length == 0) {
-                    err1.innerHTML = "Invalid";
+                    err1.innerHTML = "Invalid - enter a number";
                     err1.style.color = "red";
                     err++;
                 } else if (number.length > 4) {
                     err1.innerHTML = "Invalid - maximum of 4 numbers";
                     err1.style.color = "orange";
-                } else {
-                    err1.innerHTML = "Valid";
-                    err1.style.color = "green";
                 }
     
                 if (target.length == 0) {
-                    err2.innerHTML = "Invalid";
+                    err2.innerHTML = "Invalid - enter a number";
                     err2.style.color = "red";
                     err++;
-                } else {
-                    err2.innerHTML = "Valid";
-                    err2.style.color = "green";
                 }
     
                 if (err > 0) {
@@ -143,7 +159,10 @@
                 })
     
                 if (result_set.size == 0) {
-                    add_li(results, "No solutions");
+                    add_li(results, "No solutions :(");
+                    possible.innerHTML = "No solutions exist";
+                } else {
+                    possible.innerHTML = "Solutions exist";
                 }
             }
         </script>
