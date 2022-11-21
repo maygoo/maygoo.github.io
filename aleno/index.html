@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Aleno</title>
+        <link rel="icon" type="image/x-icon" href="./favicon.ico">
+    </head>
+    <body>
+        <div style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
+            <h1>🍊🧙‍♀️🪙✒️📚</h1>
+            <div>
+                <div style="margin-bottom: 0.5em;">
+                    Spell level:
+                    <input type="number" name="level" id="level" value="1" oninput="calculate()">
+                    <div id="err1"></div>
+                </div>
+                <div style="margin-bottom: 0.5em;">
+                    <input type="checkbox" id="discount" onclick="toggle_discount()" oninput="calculate()">
+                    <label for="discount">Illusion spell</label>
+                    <div id="err2"></div>
+                </div>
+                <div>
+                    <div>
+                        <span id="gold">100</span> Gold
+                    </div>
+                    <div>
+                        <span id="time">4</span> Hours
+                    </div>
+                </div>
+            </div>
+            <div>
+                <ul id="results" style="visibility: hidden;">
+                </ul>
+            </div>
+        </div>
+        <script>
+            var discount = false;
+
+            function toggle_discount() {
+                discount = !discount;
+            }
+
+            function calculate() {
+                let level = document.getElementById("level").value;
+                let gold = document.getElementById("gold");
+                let time = document.getElementById("time");
+                
+                if (level.length < 1) { // invalid number
+                    return;
+                }
+
+                let gpl = 50;
+                let hpl = 2;
+                let scale = discount ? 2 : 1;
+
+                let total_gold = gpl * level / scale;
+                let total_hours = hpl * level / scale;
+
+                gold.innerHTML = total_gold;
+                time.innerHTML = total_hours;
+            }
+        </script>
+    </body>
+</html>
